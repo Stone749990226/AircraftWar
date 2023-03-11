@@ -60,7 +60,7 @@ public class Game extends JPanel {
     Random r = new Random();
     private final float POSSIBILITY = 0.5F;//小于0.5产生精英敌机
     private final int MOB_HP = 30;//普通飞机的血量
-    private final int ELITE_HP = 50;//精英飞机的血量
+    private final int ELITE_HP = 30;//精英飞机的血量
     /**
      * 游戏结束标志
      */
