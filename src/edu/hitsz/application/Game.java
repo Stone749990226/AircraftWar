@@ -36,6 +36,9 @@ public class Game extends JPanel {
     private final List<BaseBullet> heroBullets;
     private final List<BaseBullet> enemyBullets;
     private final List<AbstractProperty> properties;
+    //制造敌机的工厂
+    public EnemyFactory mobEnemyFactory = new MobEnemyFactory();
+    public EnemyFactory eliteEnemyFactory = new EliteEnemyFactory();
 
     /**
      * 屏幕中出现的敌机最大数量
@@ -58,9 +61,10 @@ public class Game extends JPanel {
     private int cycleDuration = 600;
     private int cycleTime = 0;
     Random r = new Random();
-    private final float POSSIBILITY = 0.5F;//小于0.5产生精英敌机
-    private final int MOB_HP = 30;//普通飞机的血量
-    private final int ELITE_HP = 30;//精英飞机的血量
+    public final float POSSIBILITY = 0.5F;//小于0.5产生精英敌机
+    public static final int MOB_HP = 30;//普通飞机的血量
+    public static final int ELITE_HP = 30;//精英飞机的血量
+    public static final int HERO_HP = 1000;//英雄飞机的血量
     /**
      * 游戏结束标志
      */
@@ -68,10 +72,10 @@ public class Game extends JPanel {
 
     public Game() {
         //如果直接new这里不能保证唯一性
-        heroAircraft = new HeroAircraft(
+        heroAircraft = HeroAircraft.getInstance(
                 Main.WINDOW_WIDTH / 2,
                 Main.WINDOW_HEIGHT - ImageManager.HERO_IMAGE.getHeight(),
-                0, 0, 100);
+                0, 0, HERO_HP);
 
         enemyAircrafts = new LinkedList<>();
         heroBullets = new LinkedList<>();
@@ -105,8 +109,9 @@ public class Game extends JPanel {
                 System.out.println(time);
                 // 新敌机产生
                 if (enemyAircrafts.size() < enemyMaxNumber) {
+
                     if (r.nextFloat() < POSSIBILITY) {
-                        enemyAircrafts.add(new MobEnemy(
+                        enemyAircrafts.add(mobEnemyFactory.CreateEnemy(
                                 (int) (Math.random() * (Main.WINDOW_WIDTH - ImageManager.MOB_ENEMY_IMAGE.getWidth())),
                                 (int) (Math.random() * Main.WINDOW_HEIGHT * 0.05),
                                 0,
@@ -114,7 +119,7 @@ public class Game extends JPanel {
                                 MOB_HP
                         ));
                     } else {
-                        enemyAircrafts.add(new EliteEnemy(
+                        enemyAircrafts.add(eliteEnemyFactory.CreateEnemy(
                                 (int) (Math.random() * (Main.WINDOW_WIDTH - ImageManager.MOB_ENEMY_IMAGE.getWidth())),
                                 (int) (Math.random() * Main.WINDOW_HEIGHT * 0.05),
                                 0,

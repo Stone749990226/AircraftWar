@@ -1,5 +1,6 @@
 package edu.hitsz.aircraft;
 
+import edu.hitsz.application.Game;
 import edu.hitsz.application.Main;
 import edu.hitsz.basic.AbstractFlyingObject;
 
@@ -12,8 +13,8 @@ public class BloodProperty extends AbstractProperty {
     @Override
     public void getProperty(HeroAircraft heroAircraft) {
         heroAircraft.setHp(BLOOD_UP+heroAircraft.getHp());
-        if(heroAircraft.getHp()>100){
-            heroAircraft.setHp(100);
+        if(heroAircraft.getHp()>Game.HERO_HP){
+            heroAircraft.setHp(Game.HERO_HP);
         }
     }
 }

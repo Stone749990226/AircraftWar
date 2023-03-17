@@ -61,14 +61,18 @@ public class EliteEnemy extends AbstractEnemyAircraft {
     }
     @Override
     public void produceProperty(List<AbstractProperty> properties,int locationX, int locationY){
+        PropertyFactory bloodPropertyFactory = new BloodPropertyFactory();
+        PropertyFactory bombPropertyFactory = new BombPropertyFactory();
+        PropertyFactory bulletPropertyFactory = new BulletPropertyFactory();
+
         Random r = new Random();
         float randomNumber = r.nextFloat();
         if (randomNumber <= 0.3) {
-            properties.add(new BloodProperty(locationX, locationY));
+            properties.add(bloodPropertyFactory.createProperty(locationX, locationY));
         } else if (randomNumber > 0.3 && randomNumber <= 0.6) {
-            properties.add(new BulletProperty(locationX, locationY));
+            properties.add(bulletPropertyFactory.createProperty(locationX, locationY));
         } else if (randomNumber > 0.6 && randomNumber <= 0.9) {
-            properties.add(new BombProperty(locationX, locationY));
+            properties.add(bombPropertyFactory.createProperty(locationX, locationY));
         }
     }
 }

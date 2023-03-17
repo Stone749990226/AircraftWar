@@ -10,5 +10,4 @@ public abstract class AbstractEnemyAircraft extends AbstractAircraft {
         super(locationX, locationY, speedX, speedY, hp);
     }
     public abstract void produceProperty(List<AbstractProperty> properties, int locationX, int locationY);
-
 }

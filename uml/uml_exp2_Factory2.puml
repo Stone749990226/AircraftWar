@@ -1,0 +1,48 @@
+@startuml
+abstract class AbstractProperty{
++ AbstractProperty(int locationX, int locationY)
++ {abstract} getProperty(HeroAircraft heroAircraft):void
++ forward():void
+}
+class BulletProperty {
++ BulletProperty(int locationX, int locationY)
++ getProperty(HeroAircraft heroAircraft):void
+}
+class BloodProperty {
+- BLOOD_UP:int
++ BloodProperty(int locationX, int locationY)
++ getProperty(HeroAircraft heroAircraft):void
+}
+class BombProperty {
++ BombProperty(int locationX, int locationY)
++ getProperty(HeroAircraft heroAircraft):void
+}
+
+Interface PropertyFactory{
++ {abstract} CreateProperty(int locationX, int locationY):AbstractProperty
+}
+class BloodPropertyFactory{
++ CreateProperty(int locationX, int locationY):AbstractProperty
+}
+class BombPropertyFactory{
++ CreateProperty(int locationX, int locationY):AbstractProperty
+}
+class BulletPropertyFactory{
++ CreateProperty(int locationX, int locationY):AbstractProperty
+}
+PropertyFactory <|.. BloodPropertyFactory
+PropertyFactory <|.. BombPropertyFactory
+PropertyFactory <|.. BulletPropertyFactory
+
+AbstractProperty <|-- BloodProperty
+AbstractProperty <|-- BombProperty
+AbstractProperty <|-- BulletProperty
+
+BloodProperty <..  BloodPropertyFactory
+BombProperty <..   BombPropertyFactory
+BulletProperty <.. BulletPropertyFactory
+
+PropertyFactory ..> AbstractProperty
+
+
+@enduml
