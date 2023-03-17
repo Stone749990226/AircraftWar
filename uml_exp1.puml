@@ -15,10 +15,12 @@ class EliteEnemy {
 + EnemyBullet(int locationX, int locationY, int speedX, int speedY, int power)
 + shoot():List<BaseBullet>
 + forward():void
++ produceProperty(List<AbstractProperty> properties, int locationX, int locationY):void
 }
 class BossEnemy {
 + BossEnemy(int locationX, int locationY, int speedX, int speedY, int hp)
 + shoot():List<BaseBullet>
++ produceProperty(List<AbstractProperty> properties, int locationX, int locationY):void
 }
 abstract class AbstractAircraft {
 # maxHp:int
@@ -50,10 +52,15 @@ abstract class AbstractFlyingObject {
 + notValid():boolean
 + vanish():void
 }
+abstract class AbstractEnemyAircraft {
++ AbstractEnemyAircraft(int locationX, int locationY, int speedX, int speedY, int hp)
++ {abstract} produceProperty(List<AbstractProperty> properties, int locationX, int locationY):void
+}
 class MobEnemy {
 + MobEnemy(int locationX, int locationY, int speedX, int speedY, int hp)
 + forward():void
 + shoot():List<BaseBullet>
++ produceProperty(List<AbstractProperty> properties, int locationX, int locationY):void
 }
 class BulletProperty {
 + BulletProperty(int locationX, int locationY)
@@ -90,12 +97,12 @@ AbstractFlyingObject <|-- BaseBullet
 BaseBullet <|-- EnemyBullet
 BaseBullet <|-- HeroBullet
 AbstractProperty <|-- BombProperty
-AbstractAircraft <|-- EliteEnemy
-AbstractAircraft <|-- BossEnemy
+AbstractEnemyAircraft <|-- EliteEnemy
+AbstractEnemyAircraft <|-- BossEnemy
 AbstractFlyingObject <|-- AbstractAircraft
-AbstractAircraft <|-- MobEnemy
+AbstractEnemyAircraft <|-- MobEnemy
 AbstractProperty <|-- BulletProperty
 AbstractAircraft <|-- HeroAircraft
 AbstractProperty <|-- BloodProperty
-
+AbstractAircraft <|-- AbstractEnemyAircraft
 @enduml
