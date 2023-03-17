@@ -1,0 +1,101 @@
+@startuml
+abstract class AbstractProperty {
++ AbstractProperty(int locationX, int locationY)
++ forward():void
++ {abstract} getProperty(HeroAircraft heroAircraft)
+}
+class BombProperty {
++ BombProperty(int locationX, int locationY)
++ getProperty(HeroAircraft heroAircraft)
+}
+class EliteEnemy {
+- shootNum:int
+- power:int
+- direction:int
++ EnemyBullet(int locationX, int locationY, int speedX, int speedY, int power)
++ shoot():List<BaseBullet>
++ forward():void
+}
+class BossEnemy {
++ BossEnemy(int locationX, int locationY, int speedX, int speedY, int hp)
++ shoot():List<BaseBullet>
+}
+abstract class AbstractAircraft {
+# maxHp:int
+# hp:int
++ AbstractAircraft(int locationX, int locationY, int speedX, int speedY, int hp)
++ decreaseHp(int):void
++ getHp():int
++ {abstract}shoot():List<BaseBullet>
+}
+abstract class AbstractFlyingObject {
+# locationX:int
+# locationY:int
+# speedX:int
+# speedY:int
+# image:BufferedImage
+# width:int
+# height:int
+# isValid:boolean
++ AbstractFlyingObject(int locationX, int locationY, int speedX, int speedY)
++ forward():void
++ crash(AbstractFlyingObject):boolean
++ getLocationX():int
++ getLocationY():int
++ setLocation(double,double):void
++ getSpeedY():int
++ getImage():BufferedImage
++ getWidth():int
++ getHeight():int
++ notValid():boolean
++ vanish():void
+}
+class MobEnemy {
++ MobEnemy(int locationX, int locationY, int speedX, int speedY, int hp)
++ forward():void
++ shoot():List<BaseBullet>
+}
+class BulletProperty {
++ BulletProperty(int locationX, int locationY)
++ getProperty(HeroAircraft heroAircraft)
+}
+class HeroAircraft {
+- shootNum:int
+- power:int
+- direction:int
++ HeroAircraft(int locationX, int locationY, int speedX, int speedY, int hp)
++ forward():void
++ shoot():List<BaseBullet>
++ setHp(int):void
+}
+class BloodProperty {
+- BLOOD_UP:int
++ BloodProperty(int locationX, int locationY)
++ getProperty(HeroAircraft heroAircraft)
+}
+class BaseBullet {
+- power:int
++ BaseBullet(int locationX, int locationY, int speedX, int speedY, int power)
++ forward():void
++ getPower():int
+}
+class EnemyBullet {
++ EnemyBullet(int locationX, int locationY, int speedX, int speedY, int power)
+}
+class HeroBullet {
++ HeroBullet(int locationX, int locationY, int speedX, int speedY, int power)
+}
+AbstractFlyingObject <|-- AbstractProperty
+AbstractFlyingObject <|-- BaseBullet
+BaseBullet <|-- EnemyBullet
+BaseBullet <|-- HeroBullet
+AbstractProperty <|-- BombProperty
+AbstractAircraft <|-- EliteEnemy
+AbstractAircraft <|-- BossEnemy
+AbstractFlyingObject <|-- AbstractAircraft
+AbstractAircraft <|-- MobEnemy
+AbstractProperty <|-- BulletProperty
+AbstractAircraft <|-- HeroAircraft
+AbstractProperty <|-- BloodProperty
+
+@enduml

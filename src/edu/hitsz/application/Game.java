@@ -66,6 +66,7 @@ public class Game extends JPanel {
      */
     private boolean gameOverFlag = false;
     public Game() {
+        //如果直接new这里不能保证唯一性
         heroAircraft = new HeroAircraft(
                 Main.WINDOW_WIDTH / 2,
                 Main.WINDOW_HEIGHT - ImageManager.HERO_IMAGE.getHeight() ,
@@ -267,7 +268,7 @@ public class Game extends JPanel {
             if (propertyAircraft.notValid()) {
                 continue;
             }
-            if(heroAircraft.crash(propertyAircraft)){
+            if(heroAircraft.crash(propertyAircraft) || propertyAircraft.crash(heroAircraft)){
                 propertyAircraft.getProperty(heroAircraft);
                 propertyAircraft.vanish();
             }
