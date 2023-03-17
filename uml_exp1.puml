@@ -2,11 +2,11 @@
 abstract class AbstractProperty {
 + AbstractProperty(int locationX, int locationY)
 + forward():void
-+ {abstract} getProperty(HeroAircraft heroAircraft)
++ {abstract} getProperty(HeroAircraft heroAircraft):void
 }
 class BombProperty {
 + BombProperty(int locationX, int locationY)
-+ getProperty(HeroAircraft heroAircraft)
++ getProperty(HeroAircraft heroAircraft):void
 }
 class EliteEnemy {
 - shootNum:int
@@ -64,7 +64,7 @@ class MobEnemy {
 }
 class BulletProperty {
 + BulletProperty(int locationX, int locationY)
-+ getProperty(HeroAircraft heroAircraft)
++ getProperty(HeroAircraft heroAircraft):void
 }
 class HeroAircraft {
 - shootNum:int
@@ -78,7 +78,7 @@ class HeroAircraft {
 class BloodProperty {
 - BLOOD_UP:int
 + BloodProperty(int locationX, int locationY)
-+ getProperty(HeroAircraft heroAircraft)
++ getProperty(HeroAircraft heroAircraft):void
 }
 class BaseBullet {
 - power:int
