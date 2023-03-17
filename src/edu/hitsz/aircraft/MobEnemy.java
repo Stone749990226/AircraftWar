@@ -12,10 +12,15 @@ import java.util.List;
  *
  * @author hitsz
  */
-public class MobEnemy extends AbstractAircraft {
+public class MobEnemy extends AbstractEnemyAircraft {
 
     public MobEnemy(int locationX, int locationY, int speedX, int speedY, int hp) {
         super(locationX, locationY, speedX, speedY, hp);
+    }
+
+    @Override
+    public void produceProperty(List<AbstractProperty> properties, int locationX, int locationY) {
+
     }
 
     @Override

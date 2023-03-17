@@ -8,8 +8,9 @@ import edu.hitsz.bullet.HeroBullet;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
-public class EliteEnemy extends AbstractAircraft {
+public class EliteEnemy extends AbstractEnemyAircraft {
     /**攻击方式 */
 
     /**
@@ -57,5 +58,17 @@ public class EliteEnemy extends AbstractAircraft {
             res.add(bullet);
         }
         return res;
+    }
+    @Override
+    public void produceProperty(List<AbstractProperty> properties,int locationX, int locationY){
+        Random r = new Random();
+        float randomNumber = r.nextFloat();
+        if (randomNumber <= 0.3) {
+            properties.add(new BloodProperty(locationX, locationY));
+        } else if (randomNumber > 0.3 && randomNumber <= 0.6) {
+            properties.add(new BulletProperty(locationX, locationY));
+        } else if (randomNumber > 0.6 && randomNumber <= 0.9) {
+            properties.add(new BombProperty(locationX, locationY));
+        }
     }
 }
