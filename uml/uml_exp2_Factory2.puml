@@ -19,16 +19,16 @@ class BombProperty {
 }
 
 Interface PropertyFactory{
-+ {abstract} CreateProperty(int locationX, int locationY):AbstractProperty
++ {abstract} createProperty(int locationX, int locationY):AbstractProperty
 }
 class BloodPropertyFactory{
-+ CreateProperty(int locationX, int locationY):AbstractProperty
++ createProperty(int locationX, int locationY):AbstractProperty
 }
 class BombPropertyFactory{
-+ CreateProperty(int locationX, int locationY):AbstractProperty
++ createProperty(int locationX, int locationY):AbstractProperty
 }
 class BulletPropertyFactory{
-+ CreateProperty(int locationX, int locationY):AbstractProperty
++ createProperty(int locationX, int locationY):AbstractProperty
 }
 PropertyFactory <|.. BloodPropertyFactory
 PropertyFactory <|.. BombPropertyFactory

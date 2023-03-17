@@ -27,16 +27,16 @@ class BossEnemy {
 }
 
 Interface EnemyFactory{
-+ {abstract} CreateEnemy(int locationX, int locationY, int speedX, int speedY, int hp):AbstractEnemyAircraft
++ {abstract} createEnemy(int locationX, int locationY, int speedX, int speedY, int hp):AbstractEnemyAircraft
 }
 class MobEnemyFactory{
-+ CreateEnemy(int locationX, int locationY, int speedX, int speedY, int hp):AbstractEnemyAircraft
++ createEnemy(int locationX, int locationY, int speedX, int speedY, int hp):AbstractEnemyAircraft
 }
 class EliteEnemyFactory{
-+ CreateEnemy(int locationX, int locationY, int speedX, int speedY, int hp):AbstractEnemyAircraft
++ createEnemy(int locationX, int locationY, int speedX, int speedY, int hp):AbstractEnemyAircraft
 }
 class BossEnemyFactory{
-+ CreateEnemy(int locationX, int locationY, int speedX, int speedY, int hp):AbstractEnemyAircraft
++ createEnemy(int locationX, int locationY, int speedX, int speedY, int hp):AbstractEnemyAircraft
 }
 EnemyFactory <|.. MobEnemyFactory
 EnemyFactory <|.. EliteEnemyFactory
