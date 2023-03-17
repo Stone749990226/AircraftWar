@@ -268,16 +268,7 @@ public class Game extends JPanel {
                 continue;
             }
             if(heroAircraft.crash(propertyAircraft)){
-                if(BloodProperty.class.isInstance(propertyAircraft)){
-                    heroAircraft.increaseHp(BloodProperty.BLOOD_UP);
-                    if(heroAircraft.getHp()>100){
-                        heroAircraft.setHp(100);
-                    }
-                }else if (BombProperty.class.isInstance(propertyAircraft)) {
-                    System.out.println("BombSupply active!");
-                }else if (BulletProperty.class.isInstance(propertyAircraft)) {
-                    System.out.println("FireSupply active!");
-                }
+                propertyAircraft.getProperty(heroAircraft);
                 propertyAircraft.vanish();
             }
         }

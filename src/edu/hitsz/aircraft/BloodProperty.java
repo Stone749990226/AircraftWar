@@ -4,8 +4,16 @@ import edu.hitsz.application.Main;
 import edu.hitsz.basic.AbstractFlyingObject;
 
 public class BloodProperty extends AbstractProperty {
-    public static final int BLOOD_UP = 40;
+    private final int BLOOD_UP = 40; //血包的加血量
     public BloodProperty(int locationX, int locationY){
         super(locationX, locationY);
+    }
+
+    @Override
+    public void getProperty(HeroAircraft heroAircraft) {
+        heroAircraft.setHp(BLOOD_UP+heroAircraft.getHp());
+        if(heroAircraft.getHp()>100){
+            heroAircraft.setHp(100);
+        }
     }
 }
