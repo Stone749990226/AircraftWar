@@ -64,8 +64,10 @@ public class Game extends JPanel {
     private int cycleDuration = 600;
     private int cycleTime = 0;
     Random r = new Random();
-    //小于0.5产生精英敌机
-    public final float POSSIBILITY = 0.5F;
+    /**
+     * 小于0.5产生精英敌机
+     */
+    public static final float POSSIBILITY = 0.5F;
     /**
      * 普通飞机的血量
      */
@@ -122,10 +124,10 @@ public class Game extends JPanel {
 
                     if (r.nextFloat() < POSSIBILITY) {
                         enemyFactory = new MobEnemyFactory();
-                        enemyAircrafts.add(enemyFactory.CreateEnemy());
+                        enemyAircrafts.add(enemyFactory.createEnemy());
                     } else {
                         enemyFactory = new EliteEnemyFactory();
-                        enemyAircrafts.add(enemyFactory.CreateEnemy(
+                        enemyAircrafts.add(enemyFactory.createEnemy(
 
                         ));
                     }
@@ -243,12 +245,12 @@ public class Game extends JPanel {
                     // 敌机撞击到英雄机子弹
                     // 敌机损失一定生命值
                     enemyAircraft.decreaseHp(bullet.getPower());
-                    int X = enemyAircraft.getLocationX();
-                    int Y = enemyAircraft.getLocationY();
+                    int x = enemyAircraft.getLocationX();
+                    int y = enemyAircraft.getLocationY();
                     bullet.vanish();
                     if (enemyAircraft.notValid()) {
                         // TODO 获得分数，产生道具补给
-                        enemyAircraft.produceProperty(properties,X,Y);
+                        enemyAircraft.produceProperty(properties,x,y);
                         score += 10;
                     }
                 }

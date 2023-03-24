@@ -1,5 +1,5 @@
 package edu.hitsz.aircraft;
 
 public interface EnemyFactory {
-    AbstractEnemyAircraft CreateEnemy();
+    AbstractEnemyAircraft createEnemy();
 }
