@@ -8,6 +8,6 @@ class HeroAircraft{
 + forward():void
 + shoot():List<BaseBullet>
 + setHp(int):void
-+ {static} getInstance(int locationX, int locationY, int speedX, int speedY, int hp):HeroAircraft
++ {static} getInstance():HeroAircraft
 }
 @enduml
