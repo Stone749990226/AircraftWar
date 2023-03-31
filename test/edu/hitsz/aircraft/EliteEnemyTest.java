@@ -1,10 +1,7 @@
 package edu.hitsz.aircraft;
 
 import edu.hitsz.bullet.BaseBullet;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.List;
 
@@ -21,18 +18,14 @@ class EliteEnemyTest {
         eliteEnemy = enemyFactory.createEnemy();
     }
 
-    @AfterEach
-    void tearDown() {
-        enemyFactory = null;
-        eliteEnemy = null;
-    }
-
+    @DisplayName("Test Vanish method")
     @Test
     void Vanish() {
         eliteEnemy.vanish();
         assertTrue(eliteEnemy.notValid());
     }
 
+    @DisplayName("Test Shoot method")
     @Test
     void Shoot() {
         List<BaseBullet> bullets = eliteEnemy.shoot();
