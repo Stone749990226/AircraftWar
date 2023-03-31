@@ -52,8 +52,6 @@ public class EliteEnemy extends AbstractEnemyAircraft {
         int speedY = this.getSpeedY() + direction*5;
         BaseBullet bullet;
         for(int i=0; i<shootNum; i++){
-            // 子弹发射位置相对飞机位置向前偏移
-            // 多个子弹横向分散
             bullet = new EnemyBullet(x + (i*2 - shootNum + 1)*10, y, speedX, speedY, power);
             res.add(bullet);
         }
@@ -61,17 +59,17 @@ public class EliteEnemy extends AbstractEnemyAircraft {
     }
     @Override
     public void produceProperty(List<AbstractProperty> properties,int locationX, int locationY){
-        PropertyFactory propertyFactory;
+        PropertyFactory propertyFactory = null;
         Random r = new Random();
         float randomNumber = r.nextFloat();
         if (randomNumber <= 0.3) {
             propertyFactory = new BloodPropertyFactory();
-            properties.add(propertyFactory.createProperty(locationX, locationY));
         } else if (randomNumber > 0.3 && randomNumber <= 0.6) {
             propertyFactory = new BulletPropertyFactory();
-            properties.add(propertyFactory.createProperty(locationX, locationY));
         } else if (randomNumber > 0.6 && randomNumber <= 0.9) {
             propertyFactory = new BombPropertyFactory();
+        }
+        if(propertyFactory!=null){
             properties.add(propertyFactory.createProperty(locationX, locationY));
         }
     }

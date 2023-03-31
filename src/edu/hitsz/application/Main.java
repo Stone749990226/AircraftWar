@@ -11,8 +11,8 @@ import java.awt.*;
 public class Main {
 
     public static final int WINDOW_WIDTH = 512;
-    //    public static final int WINDOW_HEIGHT = 768;
-    public static final int WINDOW_HEIGHT = 668;
+    public static final int WINDOW_HEIGHT = 768;
+//    public static final int WINDOW_HEIGHT = 668;
 
     public static void main(String[] args) {
 

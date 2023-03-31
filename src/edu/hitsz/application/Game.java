@@ -81,10 +81,17 @@ public class Game extends JPanel {
      */
     public static final int HERO_HP = 1000;
     /**
+     * BOSS飞机的血量
+     */
+    public static final int BOSS_HP = 50;
+
+    /**
      * 游戏结束标志
      */
     private boolean gameOverFlag = false;
-
+    /**
+     * BOSS敌机标志
+     */
     public Game() {
         //如果直接new这里不能保证唯一性
         heroAircraft = HeroAircraft.getInstance();
@@ -121,17 +128,25 @@ public class Game extends JPanel {
                 System.out.println(time);
                 // 新敌机产生
                 if (enemyAircrafts.size() < enemyMaxNumber) {
-
                     if (r.nextFloat() < POSSIBILITY) {
                         enemyFactory = new MobEnemyFactory();
                         enemyAircrafts.add(enemyFactory.createEnemy());
                     } else {
                         enemyFactory = new EliteEnemyFactory();
-                        enemyAircrafts.add(enemyFactory.createEnemy(
-
-                        ));
+                        enemyAircrafts.add(enemyFactory.createEnemy());
                     }
-
+                    if(score % 30 == 0 && score != 0) {
+                        boolean flag = false;
+                        for(AbstractEnemyAircraft enemyAircraft: enemyAircrafts){
+                            if(enemyAircraft instanceof BossEnemy){
+                                flag = true;
+                            }
+                        }
+                        if(!flag){
+                            enemyFactory = new BossEnemyFactory();
+                            enemyAircrafts.add(enemyFactory.createEnemy());
+                        }
+                    }
                 }
                 // 飞机射出子弹
                 shootAction();

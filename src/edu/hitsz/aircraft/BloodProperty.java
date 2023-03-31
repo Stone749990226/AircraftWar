@@ -5,7 +5,8 @@ import edu.hitsz.application.Main;
 import edu.hitsz.basic.AbstractFlyingObject;
 
 public class BloodProperty extends AbstractProperty {
-    private final int BLOOD_UP = 40; //血包的加血量
+    //血包的加血量
+    private final int BLOOD_UP = 40;
     public BloodProperty(int locationX, int locationY){
         super(locationX, locationY);
     }
