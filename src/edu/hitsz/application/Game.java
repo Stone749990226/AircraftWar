@@ -3,6 +3,11 @@ package edu.hitsz.application;
 import edu.hitsz.aircraft.*;
 import edu.hitsz.bullet.BaseBullet;
 import edu.hitsz.basic.AbstractFlyingObject;
+import edu.hitsz.factory.BossEnemyFactory;
+import edu.hitsz.factory.EliteEnemyFactory;
+import edu.hitsz.factory.EnemyFactory;
+import edu.hitsz.factory.MobEnemyFactory;
+import edu.hitsz.property.AbstractProperty;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 
 import javax.swing.*;
@@ -40,8 +45,6 @@ public class Game extends JPanel {
      * 制造敌机的工厂
      */
     public EnemyFactory enemyFactory;
-//    public EnemyFactory mobEnemyFactory = new MobEnemyFactory();
-//    public EnemyFactory eliteEnemyFactory = new EliteEnemyFactory();
 
     /**
      * 屏幕中出现的敌机最大数量
@@ -79,7 +82,7 @@ public class Game extends JPanel {
     /**
      * 英雄飞机的血量
      */
-    public static final int HERO_HP = 1000;
+    public static final int HERO_HP = 100;
     /**
      * BOSS飞机的血量
      */
@@ -130,10 +133,8 @@ public class Game extends JPanel {
                 if (enemyAircrafts.size() < enemyMaxNumber) {
                     if (r.nextFloat() < POSSIBILITY) {
                         enemyFactory = new MobEnemyFactory();
-                        enemyAircrafts.add(enemyFactory.createEnemy());
                     } else {
                         enemyFactory = new EliteEnemyFactory();
-                        enemyAircrafts.add(enemyFactory.createEnemy());
                     }
                     if(score % 30 == 0 && score != 0) {
                         boolean flag = false;
@@ -144,9 +145,9 @@ public class Game extends JPanel {
                         }
                         if(!flag){
                             enemyFactory = new BossEnemyFactory();
-                            enemyAircrafts.add(enemyFactory.createEnemy());
                         }
                     }
+                    enemyAircrafts.add(enemyFactory.createEnemy());
                 }
                 // 飞机射出子弹
                 shootAction();
@@ -203,10 +204,10 @@ public class Game extends JPanel {
     private void shootAction() {
         // TODO 敌机射击
         for (AbstractAircraft enemyAircraft : enemyAircrafts) {
-            enemyBullets.addAll(enemyAircraft.shoot());
+            enemyBullets.addAll(enemyAircraft.shoot(enemyAircraft));
         }
         // 英雄射击
-        heroBullets.addAll(heroAircraft.shoot());
+        heroBullets.addAll(heroAircraft.shoot(heroAircraft));
     }
 
     private void bulletsMoveAction() {

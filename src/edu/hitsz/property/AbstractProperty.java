@@ -1,5 +1,6 @@
-package edu.hitsz.aircraft;
+package edu.hitsz.property;
 
+import edu.hitsz.aircraft.HeroAircraft;
 import edu.hitsz.application.Main;
 import edu.hitsz.basic.AbstractFlyingObject;
 

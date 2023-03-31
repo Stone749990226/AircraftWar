@@ -2,6 +2,7 @@ package edu.hitsz.aircraft;
 
 import edu.hitsz.bullet.BaseBullet;
 import edu.hitsz.basic.AbstractFlyingObject;
+import edu.hitsz.strategy.Strategy;
 
 import java.util.List;
 
@@ -15,8 +16,22 @@ public abstract class AbstractAircraft extends AbstractFlyingObject {
     /**
      * 生命值
      */
+    private Strategy strategy;
     protected int maxHp;
     protected int hp;
+
+    /**
+     * 子弹一次发射数量
+     */
+    protected int shootNum;
+    /**
+     * 子弹伤害
+     */
+    protected int power;
+    /**
+     * 子弹射击方向 (向上发射：1，向下发射：-1)
+     */
+    protected int direction;
 
     public AbstractAircraft(int locationX, int locationY, int speedX, int speedY, int hp) {
         super(locationX, locationY, speedX, speedY);
@@ -24,10 +39,10 @@ public abstract class AbstractAircraft extends AbstractFlyingObject {
         this.maxHp = hp;
     }
 
-    public void decreaseHp(int decrease){
+    public void decreaseHp(int decrease) {
         hp -= decrease;
-        if(hp <= 0){
-            hp=0;
+        if (hp <= 0) {
+            hp = 0;
             vanish();
         }
     }
@@ -39,12 +54,34 @@ public abstract class AbstractAircraft extends AbstractFlyingObject {
 
     /**
      * 飞机射击方法，可射击对象必须实现
-     * @return
-     *  可射击对象需实现，返回子弹
-     *  非可射击对象空实现，返回null
+     *
+     * @return 可射击对象需实现，返回子弹
+     * 非可射击对象空实现，返回null
      */
-    public abstract List<BaseBullet> shoot();
+    public void setStrategy(Strategy strategy) {
+        this.strategy = strategy;
+    }
 
+    public List<BaseBullet> shoot(AbstractAircraft aircraft) {
+        return strategy.shoot(aircraft);
+    }
+//    public abstract List<BaseBullet> shoot();
+
+    public int getShootNum() {
+        return shootNum;
+    }
+
+    public int getPower() {
+        return power;
+    }
+
+    public int getDirection() {
+        return direction;
+    }
+
+    public void setShootNum(int shootNum) {
+        this.shootNum = shootNum;
+    }
 }
 
 

@@ -1,4 +1,7 @@
-package edu.hitsz.aircraft;
+package edu.hitsz.factory;
+
+import edu.hitsz.property.AbstractProperty;
+import edu.hitsz.property.BulletProperty;
 
 public class BulletPropertyFactory implements PropertyFactory{
     @Override

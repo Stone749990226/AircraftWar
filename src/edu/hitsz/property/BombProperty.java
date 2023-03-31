@@ -1,4 +1,6 @@
-package edu.hitsz.aircraft;
+package edu.hitsz.property;
+
+import edu.hitsz.aircraft.HeroAircraft;
 
 public class BombProperty extends AbstractProperty{
     public BombProperty(int locationX, int locationY) {

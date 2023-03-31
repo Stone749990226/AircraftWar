@@ -1,5 +1,7 @@
 package edu.hitsz.aircraft;
 
+import edu.hitsz.factory.EnemyFactory;
+import edu.hitsz.factory.MobEnemyFactory;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -20,14 +22,7 @@ class HeroAircraftTest {
         enemy = enemyFactory.createEnemy();
     }
 
-    @AfterEach
-    void tearDown() {
-        heroAircraft = null;
-        enemyFactory = null;
-        enemy = null;
-    }
-
-    @DisplayName("Test heroAircraft decreaseHp method")
+    @DisplayName("Test decreaseHp method")
     @ParameterizedTest
     @ValueSource(ints = {20, 30, 2000})
     void decreaseHp(int number) {
@@ -44,7 +39,7 @@ class HeroAircraftTest {
         }
     }
 
-    @DisplayName("Test heroAircraft crash method")
+    @DisplayName("Test crash method")
     @ParameterizedTest
     @CsvSource({"256, 685", "257, 690", "220, 660"})
     //由于电脑屏幕小,之前把Main的主窗格的height调小了100

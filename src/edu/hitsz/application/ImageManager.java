@@ -4,6 +4,9 @@ package edu.hitsz.application;
 import edu.hitsz.aircraft.*;
 import edu.hitsz.bullet.EnemyBullet;
 import edu.hitsz.bullet.HeroBullet;
+import edu.hitsz.property.BloodProperty;
+import edu.hitsz.property.BombProperty;
+import edu.hitsz.property.BulletProperty;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

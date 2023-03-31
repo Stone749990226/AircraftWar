@@ -1,8 +1,7 @@
-package edu.hitsz.aircraft;
+package edu.hitsz.property;
 
+import edu.hitsz.aircraft.HeroAircraft;
 import edu.hitsz.application.Game;
-import edu.hitsz.application.Main;
-import edu.hitsz.basic.AbstractFlyingObject;
 
 public class BloodProperty extends AbstractProperty {
     //血包的加血量

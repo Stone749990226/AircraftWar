@@ -1,35 +1,22 @@
 package edu.hitsz.aircraft;
 
 import edu.hitsz.application.Main;
-import edu.hitsz.basic.AbstractFlyingObject;
 import edu.hitsz.bullet.BaseBullet;
 import edu.hitsz.bullet.EnemyBullet;
-import edu.hitsz.bullet.HeroBullet;
+import edu.hitsz.factory.BloodPropertyFactory;
+import edu.hitsz.factory.BombPropertyFactory;
+import edu.hitsz.factory.BulletPropertyFactory;
+import edu.hitsz.factory.PropertyFactory;
+import edu.hitsz.property.AbstractProperty;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
 public class EliteEnemy extends AbstractEnemyAircraft {
-    /**攻击方式 */
 
-    /**
-     * 子弹一次发射数量
-     */
-    private int shootNum = 1;
-
-    /**
-     * 子弹伤害
-     */
-    private int power = 30;
-
-    /**
-     * 子弹射击方向 (向上发射：1，向下发射：-1)
-     */
-    private int direction = 1;
-
-    public EliteEnemy(int locationX, int locationY, int speedX, int speedY, int hp) {
-        super(locationX, locationY, speedX, speedY, hp);
+    public EliteEnemy(int locationX, int locationY, int speedX, int speedY, int hp, int shootNum, int power, int direction) {
+        super(locationX, locationY, speedX, speedY, hp, shootNum, power, direction);
     }
     @Override
     public void forward() {
@@ -39,11 +26,11 @@ public class EliteEnemy extends AbstractEnemyAircraft {
             vanish();
         }
     }
-    @Override
-    /**
+/*    @Override
+    *//**
      * 通过射击产生子弹
      * @return 射击出的子弹List
-     */
+     *//*
     public List<BaseBullet> shoot() {
         List<BaseBullet> res = new LinkedList<>();
         int x = this.getLocationX();
@@ -56,9 +43,9 @@ public class EliteEnemy extends AbstractEnemyAircraft {
             res.add(bullet);
         }
         return res;
-    }
+    }*/
     @Override
-    public void produceProperty(List<AbstractProperty> properties,int locationX, int locationY){
+    public void produceProperty(List<AbstractProperty> properties, int locationX, int locationY){
         PropertyFactory propertyFactory = null;
         Random r = new Random();
         float randomNumber = r.nextFloat();

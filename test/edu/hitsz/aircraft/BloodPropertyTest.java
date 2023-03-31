@@ -1,8 +1,11 @@
 package edu.hitsz.aircraft;
 
 import edu.hitsz.application.Game;
-import org.junit.jupiter.api.AfterEach;
+import edu.hitsz.factory.BloodPropertyFactory;
+import edu.hitsz.factory.PropertyFactory;
+import edu.hitsz.property.AbstractProperty;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,12 +23,7 @@ class BloodPropertyTest {
         bloodProperty = propertyFactory.createProperty(100, 100);
     }
 
-    @AfterEach
-    void tearDown() {
-        propertyFactory = null;
-        bloodProperty = null;
-    }
-
+    @DisplayName("Test forward method")
     @Test
     void forward() {
         int locationX1 = bloodProperty.getLocationX();
@@ -41,6 +39,7 @@ class BloodPropertyTest {
         assertTrue(bloodProperty.notValid());
     }
 
+    @DisplayName("Test getProperty method")
     @Test
     void getProperty() {
         heroAircraft = HeroAircraft.getInstance();

@@ -1,4 +1,7 @@
-package edu.hitsz.aircraft;
+package edu.hitsz.property;
+
+import edu.hitsz.aircraft.HeroAircraft;
+import edu.hitsz.strategy.ScatterShoot;
 
 public class BulletProperty extends AbstractProperty{
 
@@ -9,5 +12,7 @@ public class BulletProperty extends AbstractProperty{
     @Override
     public void getProperty(HeroAircraft heroAircraft) {
         System.out.println("FireSupply active!");
+        heroAircraft.setShootNum(3);
+        heroAircraft.setStrategy(new ScatterShoot());
     }
 }
