@@ -4,6 +4,9 @@ import edu.hitsz.aircraft.*;
 import edu.hitsz.bullet.BaseBullet;
 import edu.hitsz.basic.AbstractFlyingObject;
 
+import edu.hitsz.dao.Dao;
+import edu.hitsz.dao.DaoImplement;
+import edu.hitsz.dao.Round;
 import edu.hitsz.factory.BossEnemyFactory;
 import edu.hitsz.factory.EliteEnemyFactory;
 import edu.hitsz.factory.EnemyFactory;
@@ -15,6 +18,8 @@ import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.*;
@@ -179,6 +184,20 @@ public class Game extends JPanel {
                 // 游戏结束
                 executorService.shutdown();
                 gameOverFlag = true;
+                Dao dao = null;
+                try {
+                    dao = new DaoImplement(new File("rank.ser"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("*****************************************");
+                System.out.println("             积分排行榜                    ");
+                System.out.println("*****************************************");
+
+                Round round = new Round(dao.getRoundsNum()+1,"stone",score);
+                dao.addRound(round);
+                dao.showRanks();
+                dao.save();
                 System.out.println("Game Over!");
             }
 
