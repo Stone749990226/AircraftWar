@@ -3,11 +3,13 @@ package edu.hitsz.application;
 import edu.hitsz.aircraft.*;
 import edu.hitsz.bullet.BaseBullet;
 import edu.hitsz.basic.AbstractFlyingObject;
+
 import edu.hitsz.factory.BossEnemyFactory;
 import edu.hitsz.factory.EliteEnemyFactory;
 import edu.hitsz.factory.EnemyFactory;
 import edu.hitsz.factory.MobEnemyFactory;
 import edu.hitsz.property.AbstractProperty;
+
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 
 import javax.swing.*;
@@ -82,16 +84,20 @@ public class Game extends JPanel {
     /**
      * 英雄飞机的血量
      */
-    public static final int HERO_HP = 100;
+    public static final int HERO_HP = 1000;
     /**
      * BOSS飞机的血量
      */
-    public static final int BOSS_HP = 50;
-
+    public static final int BOSS_HP = 100;
+    /**
+     * 控制BOSS飞机的出现频率
+     */
+    private int bossScore = 50;
     /**
      * 游戏结束标志
      */
     private boolean gameOverFlag = false;
+
     /**
      * BOSS敌机标志
      */
@@ -136,23 +142,23 @@ public class Game extends JPanel {
                     } else {
                         enemyFactory = new EliteEnemyFactory();
                     }
-                    if(score % 30 == 0 && score != 0) {
-                        boolean flag = false;
-                        for(AbstractEnemyAircraft enemyAircraft: enemyAircrafts){
-                            if(enemyAircraft instanceof BossEnemy){
-                                flag = true;
-                            }
-                        }
-                        if(!flag){
-                            enemyFactory = new BossEnemyFactory();
-                        }
-                    }
                     enemyAircrafts.add(enemyFactory.createEnemy());
                 }
                 // 飞机射出子弹
                 shootAction();
             }
-
+            if (score % bossScore == 0 && score > 0) {
+                boolean flag = false;
+                for (AbstractEnemyAircraft enemyAircraft : enemyAircrafts) {
+                    if (enemyAircraft instanceof BossEnemy) {
+                        flag = true;
+                    }
+                }
+                if (!flag) {
+                    enemyFactory = new BossEnemyFactory();
+                    enemyAircrafts.add(enemyFactory.createEnemy());
+                }
+            }
             // 子弹移动
             bulletsMoveAction();
 
@@ -266,7 +272,7 @@ public class Game extends JPanel {
                     bullet.vanish();
                     if (enemyAircraft.notValid()) {
                         // TODO 获得分数，产生道具补给
-                        enemyAircraft.produceProperty(properties,x,y);
+                        enemyAircraft.produceProperty(properties, x, y);
                         score += 10;
                     }
                 }

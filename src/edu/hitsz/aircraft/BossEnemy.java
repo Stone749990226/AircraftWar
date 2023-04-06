@@ -47,26 +47,4 @@ public class BossEnemy extends AbstractEnemyAircraft {
             properties.add(propertyFactory.createProperty(locationX-(i-1)*30, locationY));
         }
     }
-
-/*    *//**
-     * 通过射击产生子弹
-     *
-     * @return 射击出的子弹List
-     *//*
-    @Override
-    public List<BaseBullet> shoot() {
-        List<BaseBullet> res = new LinkedList<>();
-        int x = this.getLocationX();
-        int y = this.getLocationY() + direction * 2;
-        int speedY = this.getSpeedY() + direction * 5;
-        BaseBullet bullet;
-        for (int i = 0; i < shootNum; i++) {
-            // 子弹发射位置相对飞机位置向前偏移
-            // 多个子弹横向分散
-            int speedX = i - 1;
-            bullet = new EnemyBullet(x + (i * 2 - shootNum + 1) * 10, y, speedX, speedY, power);
-            res.add(bullet);
-        }
-        return res;
-    }*/
 }
