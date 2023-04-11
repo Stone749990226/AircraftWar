@@ -12,7 +12,7 @@ public class BossEnemyFactory implements EnemyFactory {
     public AbstractEnemyAircraft createEnemy() {
         BossEnemy bossEnemy = new BossEnemy((int) (Math.random() * (Main.WINDOW_WIDTH - ImageManager.MOB_ENEMY_IMAGE.getWidth())),
                 (int) (Math.random() * Main.WINDOW_HEIGHT * 0.05),
-                10,
+                3,
                 0,
                 Game.BOSS_HP, 3, 30, 1);
         bossEnemy.setStrategy(new ScatterShoot());

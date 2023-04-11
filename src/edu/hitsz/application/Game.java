@@ -103,9 +103,8 @@ public class Game extends JPanel {
      */
     private boolean gameOverFlag = false;
 
-    /**
-     * BOSS敌机标志
-     */
+    public static Dao dao = null;
+
     public Game() {
         //如果直接new这里不能保证唯一性
         heroAircraft = HeroAircraft.getInstance();
@@ -379,18 +378,20 @@ public class Game extends JPanel {
     }
 
     private void printRankingList() {
-        Dao dao = null;
         try {
             dao = new DaoImplement(new File("rank.data"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("*****************************************");
-        System.out.println("                积分排行榜                 ");
-        System.out.println("*****************************************");
-        System.out.println("名次\t\t玩家名\t分数\t\t\t时间");
+//        System.out.println("*****************************************");
+//        System.out.println("                积分排行榜                 ");
+//        System.out.println("*****************************************");
+//        System.out.println("名次\t\t玩家名\t分数\t\t\t时间");
         Round round = new Round(dao.getRoundsNum()+1,"stone",score);
         dao.addRound(round);
+        RankingMenu rankingMenu = new RankingMenu(round);
+        Main.cardPanel.add(rankingMenu.getMainPanel());
+        Main.cardLayout.next(Main.cardPanel);
         dao.showRanks();
         dao.save();
     }
