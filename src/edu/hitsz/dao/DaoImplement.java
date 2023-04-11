@@ -44,8 +44,8 @@ public class DaoImplement implements Dao{
     }
 
     @Override
-    public void removeRound(Round round) {
-
+    public void removeRound(int index) {
+        roundList.remove(index);
     }
 
     @Override
@@ -66,6 +66,11 @@ public class DaoImplement implements Dao{
             i++;
             System.out.println("第"+i+"名"+"\t"+round.getName()+"\t"+round.getScore()+"\t"+round.getRecordTime());;
         }
+    }
+
+    @Override
+    public void sortRanks() {
+        Collections.sort(roundList);
     }
 
     @Override

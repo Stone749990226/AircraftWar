@@ -12,8 +12,9 @@ public interface Dao {
     List<Round> getAllRounds();
 
     void addRound(Round round);
-    void removeRound(Round round);
+    void removeRound(int index);
     void save();
     void showRanks();
+    void sortRanks();
     int getRoundsNum();
 }

@@ -389,11 +389,13 @@ public class Game extends JPanel {
 //        System.out.println("名次\t\t玩家名\t分数\t\t\t时间");
         Round round = new Round(dao.getRoundsNum()+1,"stone",score);
         dao.addRound(round);
-        RankingMenu rankingMenu = new RankingMenu(round);
-        Main.cardPanel.add(rankingMenu.getMainPanel());
-        Main.cardLayout.next(Main.cardPanel);
+        dao.sortRanks();
         dao.showRanks();
         dao.save();
+        RankingMenu rankingMenu = new RankingMenu();
+        Main.cardPanel.add(rankingMenu.getMainPanel());
+        Main.cardLayout.next(Main.cardPanel);
+
     }
 
 }

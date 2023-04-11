@@ -12,6 +12,10 @@ public class StartMenu {
     private JButton easy;
     private JButton normal;
     private JButton hard;
+    private JPanel upPanel;
+    private JPanel lowPanel;
+    public JPanel mainPanel;
+    private JLabel Label;
     private JComboBox choose;
 
     public static final int WINDOW_WIDTH = 512;
@@ -74,37 +78,6 @@ public class StartMenu {
     public JPanel getMainPanel() {
         return mainPanel;
     }
-    //    public static void main(String[] args) {
-//        JFrame frame = new JFrame("DifficultySelection");
-//        frame.setSize(400, 600);
-//        frame.setResizable(false);
-//        frame.setContentPane(new StartMenu().mainPanel);
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.setVisible(true);
-//    }
 
-//    public JFrame startGame(){
-//        System.out.println("Hello Aircraft War");
-//        // 获得屏幕的分辨率，初始化 Frame
-//        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-//        JFrame frame = new JFrame("Aircraft War");
-//        frame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-//        frame.setResizable(false);
-//        //设置窗口的大小和位置,居中放置
-//        frame.setBounds(((int) screenSize.getWidth() - WINDOW_WIDTH) / 2, 0,
-//                WINDOW_WIDTH, WINDOW_HEIGHT);
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//
-//        Game game = new Game();
-//
-//        frame.add(game);
-//        frame.setVisible(true);
-//        game.action();
-//        return frame;
-//    }
 
-    private JPanel upPanel;
-    private JPanel lowPanel;
-    public JPanel mainPanel;
-    private JLabel Label;
 }
