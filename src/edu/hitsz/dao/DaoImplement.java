@@ -61,8 +61,10 @@ public class DaoImplement implements Dao{
     @Override
     public void showRanks() {
         Collections.sort(roundList);
+        int i = 0;
         for(Round round : roundList) {
-            System.out.println("第"+round.getId()+"名"+"\t"+round.getName()+"\t"+round.getScore()+"\t"+round.getRecordTime());;
+            i++;
+            System.out.println("第"+i+"名"+"\t"+round.getName()+"\t"+round.getScore()+"\t"+round.getRecordTime());;
         }
     }
 

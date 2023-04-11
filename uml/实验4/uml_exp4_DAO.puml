@@ -1,0 +1,41 @@
+@startuml
+class Round {
+- {static} long serialVersionUID
+- int id
+- String name
+- String score
+- int recordTime
++ getId():int
++ getName():String
++ getScore():int
++ getRecordTime():String
++ compareTo(Round o):int
++ toString():String
+}
+class Game {
+}
+class DaoImplement {
+- File file
+- List<Round> roundList
++ DaoImplement(File file)
++ getAllRounds():List<Round>
++ addRound(Round round):void
++ removeRound(Round round):void
++ save():void
++ showRanks():void
++ getRoundsNum():int
+}
+interface Dao {
++ {abstract} getAllRounds():List<Round>
++ {abstract} addRound(Round round):void
++ {abstract} removeRound(Round round):void
++ {abstract} save():void
++ {abstract} showRanks():void
++ {abstract} getRoundsNum():int
+}
+
+Game .r.> Dao
+Dao <|.. DaoImplement
+Round <-r- DaoImplement
+
+@enduml

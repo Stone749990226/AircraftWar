@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class DirectShoot implements Strategy{
     @Override
-    public List<BaseBullet> shoot(AbstractAircraft aircraft) {
+    public List<BaseBullet> shootExecute(AbstractAircraft aircraft) {
         List<BaseBullet> res = new LinkedList<>();
         int x = aircraft.getLocationX();
         int y = aircraft.getLocationY() + aircraft.getDirection() * 2;

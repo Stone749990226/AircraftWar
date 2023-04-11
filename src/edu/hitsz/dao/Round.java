@@ -53,9 +53,9 @@ public class Round implements Serializable, Comparable<Round>{
     @Override
     public int compareTo(Round o) {
         if(this.score > o.score){
-            return 1;
-        }else {
             return -1;
+        }else {
+            return 1;
         }
     }
 }

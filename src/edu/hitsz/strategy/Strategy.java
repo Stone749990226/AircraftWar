@@ -12,5 +12,5 @@ public interface Strategy {
     /**
      * 射击策略
      */
-    List<BaseBullet> shoot(AbstractAircraft aircraft);
+    List<BaseBullet> shootExecute(AbstractAircraft aircraft);
 }

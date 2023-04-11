@@ -93,7 +93,7 @@ public class Game extends JPanel {
     /**
      * BOSS飞机的血量
      */
-    public static final int BOSS_HP = 100;
+    public static final int BOSS_HP = 150;
     /**
      * 控制BOSS飞机的出现频率
      */
@@ -184,20 +184,7 @@ public class Game extends JPanel {
                 // 游戏结束
                 executorService.shutdown();
                 gameOverFlag = true;
-                Dao dao = null;
-                try {
-                    dao = new DaoImplement(new File("rank.ser"));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                System.out.println("*****************************************");
-                System.out.println("             积分排行榜                    ");
-                System.out.println("*****************************************");
-
-                Round round = new Round(dao.getRoundsNum()+1,"stone",score);
-                dao.addRound(round);
-                dao.showRanks();
-                dao.save();
+                printRankingList();
                 System.out.println("Game Over!");
             }
 
@@ -391,5 +378,21 @@ public class Game extends JPanel {
         g.drawString("LIFE:" + this.heroAircraft.getHp(), x, y);
     }
 
+    private void printRankingList() {
+        Dao dao = null;
+        try {
+            dao = new DaoImplement(new File("rank.data"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("*****************************************");
+        System.out.println("                积分排行榜                 ");
+        System.out.println("*****************************************");
+        System.out.println("名次\t\t玩家名\t分数\t\t\t时间");
+        Round round = new Round(dao.getRoundsNum()+1,"stone",score);
+        dao.addRound(round);
+        dao.showRanks();
+        dao.save();
+    }
 
 }

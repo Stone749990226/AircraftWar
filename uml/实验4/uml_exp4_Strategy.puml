@@ -1,0 +1,39 @@
+@startuml
+interface Strategy {
++ {abstract} shootExecute(AbstractAircraft aircraft):List<BaseBullet>
+}
+class DirectShoot {
++ shootExecute(AbstractAircraft aircraft):List<BaseBullet>
+}
+abstract class AbstractAircraft {
+- Strategy strategy
+# int maxHp
+# int hp
+# int shootNum
+# int power
+# int direction
++ AbstractAircraft(int locationX, int locationY, int speedX, int speedY, int hp)
++ setStrategy(Strategy strategy):void
++ shoot(AbstractAircraft aircraft):List<BaseBullet>
++ decreaseHp(int decrease):void
++ getHp():int
++ getShootNum():int
++ getPower():int
++ getDirection():int
++ setShootNum(int shootNum):void
+}
+class NoneShoot {
++ shootExecute(AbstractAircraft aircraft):List<BaseBullet>
+}
+class ScatterShoot {
++ shootExecute(AbstractAircraft aircraft):List<BaseBullet>
+}
+
+
+Strategy <|.. DirectShoot
+Strategy <|.. NoneShoot
+Strategy <|.. ScatterShoot
+AbstractAircraft o--> Strategy
+@enduml
+Footer
+© 2023 GitHub, Inc.
