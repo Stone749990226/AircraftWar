@@ -383,19 +383,17 @@ public class Game extends JPanel {
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        System.out.println("*****************************************");
-//        System.out.println("                积分排行榜                 ");
-//        System.out.println("*****************************************");
-//        System.out.println("名次\t\t玩家名\t分数\t\t\t时间");
-        Round round = new Round(dao.getRoundsNum()+1,"stone",score);
-        dao.addRound(round);
         dao.sortRanks();
         dao.showRanks();
-        dao.save();
         RankingMenu rankingMenu = new RankingMenu();
         Main.cardPanel.add(rankingMenu.getMainPanel());
         Main.cardLayout.next(Main.cardPanel);
-
+        String userName = JOptionPane.showInputDialog(null, "游戏结束，你的得分是"+score+",\n请输入名字记录得分:");
+        Round round = new Round(dao.getRoundsNum()+1,userName,score);
+        dao.addRound(round);
+        dao.sortRanks();
+        rankingMenu.updateData();
+        dao.save();
     }
 
 }
