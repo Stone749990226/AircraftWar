@@ -1,10 +1,10 @@
 @startuml
 class Round {
-- {static} long serialVersionUID
-- int id
-- String name
-- String score
-- int recordTime
+- {static} serialVersionUID:long
+- id:int
+- name:String
+- score:int
+- recordTime:String
 + getId():int
 + getName():String
 + getScore():int

@@ -6,12 +6,12 @@ class DirectShoot {
 + shootExecute(AbstractAircraft aircraft):List<BaseBullet>
 }
 abstract class AbstractAircraft {
-- Strategy strategy
-# int maxHp
-# int hp
-# int shootNum
-# int power
-# int direction
+- strategy:Strategy
+# maxHp:int
+# hp:int
+# shootNum:int
+# power:int
+# direction:int
 + AbstractAircraft(int locationX, int locationY, int speedX, int speedY, int hp)
 + setStrategy(Strategy strategy):void
 + shoot(AbstractAircraft aircraft):List<BaseBullet>
@@ -35,5 +35,3 @@ Strategy <|.. NoneShoot
 Strategy <|.. ScatterShoot
 AbstractAircraft o--> Strategy
 @enduml
-Footer
-© 2023 GitHub, Inc.
