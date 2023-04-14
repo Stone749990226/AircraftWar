@@ -203,6 +203,12 @@ public class Game extends JPanel {
                 // 游戏结束
                 executorService.shutdown();
                 gameOverFlag = true;
+                if(bgm!=null){
+                    bgm.stopMusic();
+                }
+                if(bossBgm!=null){
+                    bossBgm.stopMusic();
+                }
                 printRankingList();
                 System.out.println("Game Over!");
             }

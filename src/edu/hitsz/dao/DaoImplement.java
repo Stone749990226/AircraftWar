@@ -27,7 +27,7 @@ public class DaoImplement implements Dao{
             }
             ois.close();
         } catch (IOException e) {
-            System.out.println("没有找到文件");
+            System.out.println("没有找到往期游戏记录文件,将新建一个");
             roundList = new ArrayList<Round>();
         }
     }

@@ -36,7 +36,6 @@ public class RankingMenu {
 
         bottomDelete.addActionListener(e -> {
             int row = scoreTable.getSelectedRow();
-            System.out.println(row);
             int result = JOptionPane.showConfirmDialog(null, "确定删除选中的玩家?");
             if (JOptionPane.YES_OPTION == result && row != -1) {
                 model.removeRow(row);
