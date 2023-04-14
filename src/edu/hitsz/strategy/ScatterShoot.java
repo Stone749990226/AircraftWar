@@ -29,7 +29,7 @@ public class ScatterShoot implements Strategy{
             if(aircraft instanceof HeroAircraft){
                 bullet = new HeroBullet(x + (i * 2 - aircraft.getShootNum() + 1) * 10, y, speedX, speedY, aircraft.getPower());
             } else if(aircraft instanceof BossEnemy){
-                bullet = new EnemyBullet(x + (i * 2 - aircraft.getShootNum() + 1) * 10, y, speedX, speedY, aircraft.getPower());
+                bullet = new EnemyBullet(x + (i * 2 - aircraft.getShootNum() + 1) * 10, y, speedX*2, speedY, aircraft.getPower());
             }
             res.add(bullet);
         }

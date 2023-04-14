@@ -16,7 +16,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="5bdf7" class="javax.swing.JLabel" binding="labelDifficulty">
+          <component id="5bdf7" class="javax.swing.JLabel" binding="headerLabel">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -24,7 +24,7 @@
               <text value="排行榜"/>
             </properties>
           </component>
-          <component id="3d8db" class="javax.swing.JLabel" binding="headerLabel">
+          <component id="3d8db" class="javax.swing.JLabel" binding="labelDifficulty">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>

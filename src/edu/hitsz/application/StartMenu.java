@@ -28,56 +28,41 @@ public class StartMenu {
 
     public StartMenu() {
 
-        easy.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("简单模式启动");
-                try {
-                    ImageManager.BACKGROUND_IMAGE = ImageIO.read(new FileInputStream("src/images/bg2.jpg"));
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                }
-                StartMenu.game = new Game();
-                Main.cardPanel.add(StartMenu.game);
-                Main.cardLayout.next(Main.cardPanel);
-                StartMenu.game.action();
-            }
+        easy.addActionListener(e -> {
+            System.out.println("简单模式启动");
+            startGame("bg2.jpg", 0);
         });
-        normal.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("普通模式启动");
-                try {
-                    ImageManager.BACKGROUND_IMAGE = ImageIO.read(new FileInputStream("src/images/bg3.jpg"));
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                }
-                StartMenu.game = new Game();
-                Main.cardPanel.add(StartMenu.game);
-                Main.cardLayout.next(Main.cardPanel);
-                StartMenu.game.action();
-            }
+        normal.addActionListener(e -> {
+            System.out.println("普通模式启动");
+            startGame("bg3.jpg", 1);
         });
-        hard.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("困难模式启动");
-                try {
-                    ImageManager.BACKGROUND_IMAGE = ImageIO.read(new FileInputStream("src/images/bg5.jpg"));
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                }
-                StartMenu.game = new Game();
-                Main.cardPanel.add(StartMenu.game);
-                Main.cardLayout.next(Main.cardPanel);
-                StartMenu.game.action();
-            }
+        hard.addActionListener(e -> {
+            System.out.println("困难模式启动");
+            startGame("bg5.jpg", 2);
         });
+    }
+
+    private void startGame(String backgroundPicture, int difficulty) {
+        try {
+            ImageManager.BACKGROUND_IMAGE = ImageIO.read(new FileInputStream("src/images/" + backgroundPicture));
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+        StartMenu.game = new Game();
+        Game.gameDifficulty = difficulty;
+        Main.cardPanel.add(StartMenu.game);
+        Main.cardLayout.next(Main.cardPanel);
+        if (choose.getSelectedIndex() == 1) {
+            Game.musicOn = false;
+            System.out.println("背景音乐关闭");
+        } else {
+            Game.musicOn = true;
+            System.out.println("背景音乐开启");
+        }
+        StartMenu.game.action();
     }
 
     public JPanel getMainPanel() {
         return mainPanel;
     }
-
-
 }

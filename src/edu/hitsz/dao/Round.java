@@ -19,7 +19,7 @@ public class Round implements Serializable, Comparable<Round>{
         this.name = name;
         this.score = score;
         Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd HH:mm:ss");
         this.recordTime = sdf.format(date);
     }
 

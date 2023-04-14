@@ -11,6 +11,7 @@ import edu.hitsz.factory.BossEnemyFactory;
 import edu.hitsz.factory.EliteEnemyFactory;
 import edu.hitsz.factory.EnemyFactory;
 import edu.hitsz.factory.MobEnemyFactory;
+import edu.hitsz.music.MusicThread;
 import edu.hitsz.property.AbstractProperty;
 
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
@@ -93,17 +94,32 @@ public class Game extends JPanel {
     /**
      * BOSS飞机的血量
      */
-    public static final int BOSS_HP = 150;
+    public static final int BOSS_HP = 300;
     /**
      * 控制BOSS飞机的出现频率
      */
-    private int bossScore = 50;
+    private final int BOSS_SCORE = 150;
+    /**
+     * BOSS是否存在
+     */
+    private static boolean bossExists = false;
     /**
      * 游戏结束标志
      */
     private boolean gameOverFlag = false;
 
     public static Dao dao = null;
+    /**
+     * 游戏难度,0表示简单,1表示普通,2表示困难
+     */
+    public static final int EASY = 0;
+    public static final int NORMAL = 1;
+    public static final int DIFFICULT = 2;
+    public static int gameDifficulty = Game.NORMAL;
+
+    public static boolean musicOn = true;
+    private MusicThread bgm = null;
+    private MusicThread bossBgm = null;
 
     public Game() {
         //如果直接new这里不能保证唯一性
@@ -151,7 +167,7 @@ public class Game extends JPanel {
                 // 飞机射出子弹
                 shootAction();
             }
-            if (score % bossScore == 0 && score > 0) {
+            if (score % BOSS_SCORE == 0 && score > 0) {
                 boolean flag = false;
                 for (AbstractEnemyAircraft enemyAircraft : enemyAircrafts) {
                     if (enemyAircraft instanceof BossEnemy) {
@@ -161,8 +177,12 @@ public class Game extends JPanel {
                 if (!flag) {
                     enemyFactory = new BossEnemyFactory();
                     enemyAircrafts.add(enemyFactory.createEnemy());
+                    bossExists = true;
                 }
             }
+            // 背景音乐控制
+            musicControl();
+
             // 子弹移动
             bulletsMoveAction();
 
@@ -253,6 +273,9 @@ public class Game extends JPanel {
                 continue;
             }
             if (heroAircraft.crash(bullet)) {
+                if(musicOn){
+                    new MusicThread("src/videos/bullet_hit.wav").start();
+                }
                 heroAircraft.decreaseHp(bullet.getPower());
                 bullet.vanish();
             }
@@ -269,6 +292,9 @@ public class Game extends JPanel {
                     continue;
                 }
                 if (enemyAircraft.crash(bullet)) {
+                    if(musicOn){
+                        new MusicThread("src/videos/bullet_hit.wav").start();
+                    }
                     // 敌机撞击到英雄机子弹
                     // 敌机损失一定生命值
                     enemyAircraft.decreaseHp(bullet.getPower());
@@ -279,10 +305,17 @@ public class Game extends JPanel {
                         // TODO 获得分数，产生道具补给
                         enemyAircraft.produceProperty(properties, x, y);
                         score += 10;
+                        //如果boos机坠毁
+                        if(enemyAircraft instanceof BossEnemy){
+                            bossExists = false;
+                        }
                     }
                 }
                 // 英雄机 与 敌机 相撞，均损毁
                 if (enemyAircraft.crash(heroAircraft) || heroAircraft.crash(enemyAircraft)) {
+                    if(musicOn){
+                        new MusicThread("src/videos/game_over.wav").start();
+                    }
                     enemyAircraft.vanish();
                     heroAircraft.decreaseHp(Integer.MAX_VALUE);
                 }
@@ -379,7 +412,18 @@ public class Game extends JPanel {
 
     private void printRankingList() {
         try {
-            dao = new DaoImplement(new File("rank.data"));
+            switch (Game.gameDifficulty){
+                case Game.EASY:
+                    dao = new DaoImplement(new File("rankEasy.data"));
+                    break;
+                case Game.NORMAL:
+                    dao = new DaoImplement(new File("rankNormal.data"));
+                    break;
+                case Game.DIFFICULT:
+                    dao = new DaoImplement(new File("rankDifficult.data"));
+                    break;
+                default:
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -389,11 +433,33 @@ public class Game extends JPanel {
         Main.cardPanel.add(rankingMenu.getMainPanel());
         Main.cardLayout.next(Main.cardPanel);
         String userName = JOptionPane.showInputDialog(null, "游戏结束，你的得分是"+score+",\n请输入名字记录得分:");
-        Round round = new Round(dao.getRoundsNum()+1,userName,score);
-        dao.addRound(round);
-        dao.sortRanks();
-        rankingMenu.updateData();
-        dao.save();
+        if(userName != null){
+            Round round = new Round(dao.getRoundsNum()+1,userName,score);
+            dao.addRound(round);
+            dao.sortRanks();
+            rankingMenu.updateData();
+            dao.save();
+        }
     }
 
+    private void musicControl(){
+        if(musicOn){
+            //如果bgm不存在且boss不存在,播放bgm
+            if((bgm == null || !bgm.isAlive()) && !bossExists){
+                this.bgm = new MusicThread("src/videos/bgm.wav");
+                bgm.start();
+            }
+            //如果boss存在,停止播放bgm,播放bossBgm
+            if((bossBgm == null || !bossBgm.isAlive()) && bossExists){
+                bgm.stopMusic();
+                this.bossBgm = new MusicThread("src/videos/bgm_boss.wav");
+                bossBgm.start();
+            }
+            if(!bossExists){
+                if(bossBgm!=null){
+                    bossBgm.stopMusic();
+                }
+            }
+        }
+    }
 }
