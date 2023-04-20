@@ -1,0 +1,33 @@
+@startuml
+class BombProperty{
+- subscribers:List<Subscriber>
+
++ BombProperty(int locationX, int locationY)
++ subscribe(Subscriber s):void
++ unsubscribe(Subscriber s):void
++ notifySubscribers():void
+}
+
+interface Subscriber{
++ {abstract} update():void
+}
+
+class Basebullet{
++ Basebullet(int locationX, int locationY, int speedX, int speedY, int power)
++ update():void
+}
+
+abstract class AbstractEnemyAircraft{
++ AbstractEnemyAircraft(int locationX, int locationY, int speedX, int speedY, int hp, int shootNum, int power, int direction)
++ {abstract} produceProperty(List<AbstractProperty> properties, int locationX, int locationY):void
+}
+
+class Game{
+}
+BombProperty o--> Subscriber
+Subscriber <|.. Basebullet
+Subscriber <|.. AbstractEnemyAircraft
+Game --> BombProperty
+Game ..> AbstractEnemyAircraft
+Game ..> Basebullet
+@enduml

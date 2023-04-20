@@ -1,10 +1,11 @@
 package edu.hitsz.aircraft;
 
+import edu.hitsz.application.Subscriber;
 import edu.hitsz.property.AbstractProperty;
 
 import java.util.List;
 
-public abstract class AbstractEnemyAircraft extends AbstractAircraft {
+public abstract class AbstractEnemyAircraft extends AbstractAircraft implements Subscriber {
 
 
     public AbstractEnemyAircraft(int locationX, int locationY, int speedX, int speedY, int hp, int shootNum, int power, int direction) {

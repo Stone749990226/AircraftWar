@@ -1,16 +1,15 @@
 package edu.hitsz.aircraft;
 
+import edu.hitsz.application.Game;
 import edu.hitsz.application.Main;
-import edu.hitsz.bullet.BaseBullet;
-import edu.hitsz.bullet.EnemyBullet;
 
+import edu.hitsz.application.StartMenu;
 import edu.hitsz.factory.BloodPropertyFactory;
 import edu.hitsz.factory.BombPropertyFactory;
 import edu.hitsz.factory.BulletPropertyFactory;
 import edu.hitsz.factory.PropertyFactory;
 import edu.hitsz.property.AbstractProperty;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -33,6 +32,7 @@ public class EliteEnemy extends AbstractEnemyAircraft {
 
     @Override
     public void produceProperty(List<AbstractProperty> properties, int locationX, int locationY){
+        StartMenu.game.increaseScore(Game.ELITE_SCORE_UP);
         PropertyFactory propertyFactory = null;
         Random r = new Random();
         float randomNumber = r.nextFloat();
@@ -46,5 +46,11 @@ public class EliteEnemy extends AbstractEnemyAircraft {
         if(propertyFactory!=null){
             properties.add(propertyFactory.createProperty(locationX, locationY));
         }
+    }
+
+    @Override
+    public void update() {
+        this.decreaseHp(Game.ELITE_HP);
+        StartMenu.game.increaseScore(Game.ELITE_SCORE_UP);
     }
 }

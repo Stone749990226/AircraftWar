@@ -1,6 +1,8 @@
 package edu.hitsz.aircraft;
 
+import edu.hitsz.application.Game;
 import edu.hitsz.application.Main;
+import edu.hitsz.application.StartMenu;
 import edu.hitsz.bullet.BaseBullet;
 import edu.hitsz.bullet.EnemyBullet;
 import edu.hitsz.factory.BloodPropertyFactory;
@@ -32,6 +34,7 @@ public class BossEnemy extends AbstractEnemyAircraft {
 
     @Override
     public void produceProperty(List<AbstractProperty> properties, int locationX, int locationY) {
+        StartMenu.game.increaseScore(Game.BOSS_SCORE_UP);
         PropertyFactory propertyFactory = null;
         Random r = new Random();
         float randomNumber;
@@ -46,5 +49,11 @@ public class BossEnemy extends AbstractEnemyAircraft {
             }
             properties.add(propertyFactory.createProperty(locationX-(i-1)*30, locationY));
         }
+    }
+
+    @Override
+    public void update() {
+        this.decreaseHp(Game.BOSS_HP / 2);
+        StartMenu.game.increaseScore(Game.BOSS_SCORE_UP);
     }
 }

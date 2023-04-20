@@ -44,11 +44,21 @@ public class Game extends JPanel {
      */
     private int timeInterval = 40;
 
+
+
     private final HeroAircraft heroAircraft;
     private final List<AbstractEnemyAircraft> enemyAircrafts;
     private final List<BaseBullet> heroBullets;
     private final List<BaseBullet> enemyBullets;
     private final List<AbstractProperty> properties;
+
+    public List<AbstractEnemyAircraft> getEnemyAircrafts() {
+        return enemyAircrafts;
+    }
+
+    public List<BaseBullet> getEnemyBullets() {
+        return enemyBullets;
+    }
     /**
      * 制造敌机的工厂
      */
@@ -59,10 +69,17 @@ public class Game extends JPanel {
      */
     private int enemyMaxNumber = 5;
 
+    public void setEnemyMaxNumber(int enemyMaxNumber) {
+        this.enemyMaxNumber = enemyMaxNumber;
+    }
+
     /**
      * 当前得分
      */
     private int score = 0;
+    public void increaseScore(int number) {
+        this.score += number;
+    }
     /**
      * 当前时刻
      */
@@ -84,9 +101,17 @@ public class Game extends JPanel {
      */
     public static final int MOB_HP = 30;
     /**
+     * 普通飞机的分数奖励
+     */
+    public static final int MOB_SCORE_UP = 10;
+    /**
      * 精英飞机的血量
      */
     public static final int ELITE_HP = 30;
+    /**
+     * 精英飞机的分数奖励
+     */
+    public static final int ELITE_SCORE_UP = 20;
     /**
      * 英雄飞机的血量
      */
@@ -96,9 +121,18 @@ public class Game extends JPanel {
      */
     public static final int BOSS_HP = 300;
     /**
+     * BOSS飞机的分数奖励
+     */
+    public static final int BOSS_SCORE_UP = 50;
+    /**
      * 控制BOSS飞机的出现频率
      */
-    private final int BOSS_SCORE = 150;
+    private int bossScoreThreshold = 150;
+
+    public void setBossScoreThreshold(int bossScoreThreshold) {
+        this.bossScoreThreshold = bossScoreThreshold;
+    }
+
     /**
      * BOSS是否存在
      */
@@ -115,7 +149,8 @@ public class Game extends JPanel {
     public static final int EASY = 0;
     public static final int NORMAL = 1;
     public static final int DIFFICULT = 2;
-    public static int gameDifficulty = Game.NORMAL;
+
+    public static int gameDifficulty;
 
     public static boolean musicOn = true;
     private MusicThread bgm = null;
@@ -142,6 +177,8 @@ public class Game extends JPanel {
 
     }
 
+
+
     /**
      * 游戏启动入口，执行游戏逻辑
      */
@@ -162,12 +199,13 @@ public class Game extends JPanel {
                     } else {
                         enemyFactory = new EliteEnemyFactory();
                     }
+
                     enemyAircrafts.add(enemyFactory.createEnemy());
                 }
                 // 飞机射出子弹
                 shootAction();
             }
-            if (score % BOSS_SCORE == 0 && score > 0) {
+            if (score % bossScoreThreshold == 0 && score > 0) {
                 boolean flag = false;
                 for (AbstractEnemyAircraft enemyAircraft : enemyAircrafts) {
                     if (enemyAircraft instanceof BossEnemy) {
@@ -241,7 +279,11 @@ public class Game extends JPanel {
     private void shootAction() {
         // TODO 敌机射击
         for (AbstractAircraft enemyAircraft : enemyAircrafts) {
-            enemyBullets.addAll(enemyAircraft.shoot(enemyAircraft));
+            List<BaseBullet> enemyBulletList = enemyAircraft.shoot(enemyAircraft);
+            enemyBullets.addAll(enemyBulletList);
+            for(BaseBullet enemyBullet:enemyBulletList) {
+
+            }
         }
         // 英雄射击
         heroBullets.addAll(heroAircraft.shoot(heroAircraft));
@@ -309,9 +351,9 @@ public class Game extends JPanel {
                     bullet.vanish();
                     if (enemyAircraft.notValid()) {
                         // TODO 获得分数，产生道具补给
+                        //这里我把加分放到了produceProperty方法里面
                         enemyAircraft.produceProperty(properties, x, y);
-                        score += 10;
-                        //如果boos机坠毁
+                        //如果boss机坠毁
                         if(enemyAircraft instanceof BossEnemy){
                             bossExists = false;
                         }
@@ -446,6 +488,15 @@ public class Game extends JPanel {
             rankingMenu.updateData();
             dao.save();
         }
+    }
+
+
+    public static int getGameDifficulty() {
+        return gameDifficulty;
+    }
+
+    public static void setGameDifficulty(int gameDifficulty) {
+        Game.gameDifficulty = gameDifficulty;
     }
 
     private void musicControl(){

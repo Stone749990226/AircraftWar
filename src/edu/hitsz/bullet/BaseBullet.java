@@ -1,6 +1,7 @@
 package edu.hitsz.bullet;
 
 import edu.hitsz.application.Main;
+import edu.hitsz.application.Subscriber;
 import edu.hitsz.basic.AbstractFlyingObject;
 
 /**
@@ -9,7 +10,7 @@ import edu.hitsz.basic.AbstractFlyingObject;
  *
  * @author hitsz
  */
-public class BaseBullet extends AbstractFlyingObject {
+public class BaseBullet extends AbstractFlyingObject  implements Subscriber {
 
     private int power = 10;
 
@@ -39,5 +40,10 @@ public class BaseBullet extends AbstractFlyingObject {
 
     public int getPower() {
         return power;
+    }
+
+    @Override
+    public void update() {
+        this.vanish();
     }
 }

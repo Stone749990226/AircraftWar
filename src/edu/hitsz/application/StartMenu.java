@@ -24,7 +24,7 @@ public class StartMenu {
     /**
      * 考虑到Game只能有一个,所以设置为静态变量
      */
-    private static Game game;
+    public static Game game;
 
     public StartMenu() {
 
@@ -49,7 +49,7 @@ public class StartMenu {
             ioException.printStackTrace();
         }
         StartMenu.game = new Game();
-        Game.gameDifficulty = difficulty;
+        Game.setGameDifficulty(difficulty);
         Main.cardPanel.add(StartMenu.game);
         Main.cardLayout.next(Main.cardPanel);
         if (choose.getSelectedIndex() == 1) {

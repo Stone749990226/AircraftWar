@@ -1,6 +1,8 @@
 package edu.hitsz.aircraft;
 
+import edu.hitsz.application.Game;
 import edu.hitsz.application.Main;
+import edu.hitsz.application.StartMenu;
 import edu.hitsz.bullet.BaseBullet;
 import edu.hitsz.property.AbstractProperty;
 
@@ -21,7 +23,7 @@ public class MobEnemy extends AbstractEnemyAircraft {
 
     @Override
     public void produceProperty(List<AbstractProperty> properties, int locationX, int locationY) {
-
+        StartMenu.game.increaseScore(Game.MOB_SCORE_UP);
     }
 
     @Override
@@ -34,4 +36,9 @@ public class MobEnemy extends AbstractEnemyAircraft {
     }
 
 
+    @Override
+    public void update() {
+        this.decreaseHp(Game.MOB_HP);
+        StartMenu.game.increaseScore(Game.MOB_SCORE_UP);
+    }
 }
